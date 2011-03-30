@@ -1,0 +1,5 @@
+largura		0.187	0.194	0.149 	0.160	0.126	0.241
+altura 		0.28	0.275	0.40	0.372	0.50	0.095	
+
+
+Nota: a largura medida foi feita utilizando a função get_laser_range_median para coletar os ranges do laser com um parâmetro MEDIAN_SIZE = 5.
