@@ -1,6 +1,6 @@
 /* 
  * File:   homography.h
- * Author: fsjunior
+ * Author: Francisco de Souza Júnior
  *
  * Created on March 29, 2011, 2:43 PM
  */

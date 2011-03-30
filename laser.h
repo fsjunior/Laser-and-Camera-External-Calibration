@@ -1,6 +1,16 @@
+/*
+ * File:   laser.h
+ * Author: Francisco de Souza Júnior
+ *
+ * Created on March 29, 2011, 2:43 PM
+ */
+
+#ifndef _LASER_H_
+#define _LASER_H_
 
 #include <libplayerc/playerc.h>
 #include "utils.h"
+
 
 #ifndef BORDER_THRESHOLD
 #define BORDER_THRESHOLD 0.030
@@ -25,3 +35,5 @@ typedef struct {
 void init_cone_detector_ctx(cone_detector_ctx *cone_detector, playerc_laser_t *laser);
 void calc_cone_pos(cone_detector_ctx *cone_detector);
 
+
+#endif /* _LASER_H_ */

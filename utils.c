@@ -1,3 +1,10 @@
+/*
+ * File:   utils.c
+ * Author: Francisco de Souza Júnior
+ *
+ * Created on March 29, 2011, 2:43 PM
+ */
+
 #include "utils.h"
 #include <math.h>
 #include <stdio.h>
@@ -32,10 +39,8 @@ void add_particle(double_particle *p, double value, int s)
         if (p[i].v == v) {
             if (p[i].n < 100)
                 p[i].n += 10;
-            continue;
         } else if (p[i].n > 0)
             p[i].n -= 5;
-
         if (p[i].n < p[less].n) {
             less = i;
         }
@@ -53,7 +58,6 @@ double max_particle(double_particle *p, int s)
             t = i;
     }
     return (double) p[t].v / pow(10, PARTICLE_VALUE_DECIMALS);
-
 }
 
 void init_particle(double_particle *p, int s)

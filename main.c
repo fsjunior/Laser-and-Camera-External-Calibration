@@ -1,7 +1,15 @@
+/*
+ * File:   main.c
+ * Author: Francisco de Souza Júnior
+ *
+ * Created on March 29, 2011, 2:43 PM
+ */
+
 #include <stdio.h>
 #include <libplayerc/playerc.h>
 #include <string.h>
 #include "laser.h"
+#include "homography.h"
 //#include <gsl/gsl_matrix.h>
 
 
@@ -12,6 +20,8 @@ int main(int argc, char *argv[])
     playerc_client_t *client;
     playerc_laser_t *laser;
     cone_detector_ctx cone_detector;
+    homography_ctx homography;
+
 
     // Create a client and connect it to the server.
     client = playerc_client_create(NULL, "localhost", 6665);
@@ -24,7 +34,7 @@ int main(int argc, char *argv[])
 
 
     init_cone_detector_ctx(&cone_detector, laser);
-
+    init_homography(&homography,10);
 
     do {
         if(!playerc_client_read(client))
@@ -36,6 +46,7 @@ int main(int argc, char *argv[])
         fflush(stdout);
     } while(1);
 
+    free_homography(&homography);
 
     playerc_laser_unsubscribe(laser);
     playerc_laser_destroy(laser);

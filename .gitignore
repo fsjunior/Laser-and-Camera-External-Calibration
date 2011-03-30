@@ -1,2 +1,4 @@
 *.o
 *~
+cone_detector
+logs/

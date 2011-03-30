@@ -1,4 +1,15 @@
+/*
+ * File:   utils.h
+ * Author: Francisco de Souza Júnior
+ *
+ * Created on March 29, 2011, 2:43 PM
+ */
+
+#ifndef _UTILS_H
+#define	_UTILS_H
+
 #include <gsl/gsl_matrix.h>
+
 
 #ifndef PARTICLE_VALUE_DECIMALS
 #define PARTICLE_VALUE_DECIMALS 2
@@ -34,3 +45,4 @@ double calc_dist(double x1, double x2, double y1, double y2);
 
 
 
+#endif /* _UTILS_H */

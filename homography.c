@@ -1,3 +1,11 @@
+/*
+ * File:   homography.c
+ * Author: Francisco de Souza Júnior and Patrick Shinzato
+ *
+ * Created on March 29, 2011, 2:43 PM
+ */
+
+
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_linalg.h>
 #include <math.h>
