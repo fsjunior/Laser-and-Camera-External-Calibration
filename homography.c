@@ -53,8 +53,9 @@ int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_c
         ctx->num_points++;
         
         return 1;
-    } else
-        return 0;
+    }
+   
+    return 0;
 }
 
 

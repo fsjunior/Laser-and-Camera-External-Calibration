@@ -12,6 +12,8 @@
 #include "homography.h"
 //#include <gsl/gsl_matrix.h>
 
+#define MAX_HOMOGRAPHY_POINTS 10
+
 
 // centimetros
 
@@ -19,7 +21,7 @@ int main(int argc, char *argv[])
 {
     playerc_client_t *client;
     playerc_laser_t *laser;
-    cone_detector_ctx cone_detector;
+    cone_laser_detector_ctx cone_detector;
     homography_ctx homography;
 
 
@@ -33,14 +35,15 @@ int main(int argc, char *argv[])
         return -1;
 
 
-    init_cone_detector_ctx(&cone_detector, laser);
-    init_homography(&homography,10);
+    init_cone_laser_detector_ctx(&cone_detector, laser);
+    init_homography(&homography,MAX_HOMOGRAPHY_POINTS);
 
     do {
         if(!playerc_client_read(client))
             return -1;
 
         calc_cone_pos(&cone_detector);
+        
 
         printf("x1:%f y1:%f x2:%f y2:%f z:%f\n", cone_detector.pos.x1, cone_detector.pos.y1, cone_detector.pos.x2, cone_detector.pos.y2, cone_detector.pos.z);
         fflush(stdout);
