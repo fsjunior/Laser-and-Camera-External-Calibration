@@ -33,7 +33,7 @@ typedef struct {
 
 
 void init_cone_laser_detector_ctx(cone_laser_detector_ctx *cone_detector, playerc_laser_t *laser);
-void calc_cone_pos(cone_laser_detector_ctx *cone_detector);
+void calc_cone_laser_pos(cone_laser_detector_ctx *cone_detector);
 
 
 #endif /* _LASER_H_ */

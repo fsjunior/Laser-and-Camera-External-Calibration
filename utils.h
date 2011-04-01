@@ -39,7 +39,7 @@ void add_particle(double_particle *p, double value, int s);
 double max_particle(double_particle *p, int s);
 void init_particle(double_particle *p, int s);
 
-void calc_x_y(int scan_count, int index, double range, double *x, double *y);
+
 double calc_dist(double x1, double x2, double y1, double y2);
 
 

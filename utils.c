@@ -10,13 +10,6 @@
 #include <stdio.h>
 #include <string.h> 
 
-void calc_x_y(int scan_count, int index, double range, double *x, double *y)
-{
-    double angle = degreetoradian((180.0 / (double) scan_count) * (double) index);
-
-    *x = cos(angle) * range;
-    *y = sin(angle) * range;
-}
 
 double calc_dist(double x1, double x2, double y1, double y2)
 {

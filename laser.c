@@ -7,13 +7,14 @@
 
 
 #include "laser.h"
-
+#include <math.h>
 
 //declarations
 int get_minor_scan_index(playerc_laser_t *laser);
 void get_cone_borders(playerc_laser_t *laser, int middle, int *left, int *right);
 double get_laser_range_median(playerc_laser_t *laser, int max_index);
 inline double calc_z(double dist);
+void calc_x_y(int scan_count, int index, double range, double *x, double *y);
 
 
 //definitions
@@ -79,8 +80,15 @@ void init_cone_laser_detector_ctx(cone_laser_detector_ctx *cone_detector, player
     init_particle(cone_detector->rightranges, NUMBER_OF_RANGE_PARTICLES);
 }
 
+void calc_x_y(int scan_count, int index, double range, double *x, double *y)
+{
+    double angle = degreetoradian((180.0 / (double) scan_count) * (double) index);
 
-void calc_cone_pos(cone_laser_detector_ctx *cone_detector)
+    *x = cos(angle) * range;
+    *y = sin(angle) * range;
+}
+
+void calc_cone_laser_pos(cone_laser_detector_ctx *cone_detector)
 {
     int minor_scan_index;
     int left, right;
