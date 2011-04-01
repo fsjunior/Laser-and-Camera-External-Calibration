@@ -1,0 +1,5 @@
+.o
+*~
+cone_detector
+logs/
+*.so
