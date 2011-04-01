@@ -64,7 +64,7 @@ double get_laser_range_median(playerc_laser_t *laser, int max_index)
     return median_vector[MEDIAN_SIZE / 2];
 }
 
-void init_cone_detector_ctx(cone_detector_ctx *cone_detector, playerc_laser_t *laser)
+void init_cone_laser_detector_ctx(cone_laser_detector_ctx *cone_detector, playerc_laser_t *laser)
 {
     cone_detector->laser = laser;
     init_particle(cone_detector->leftranges, NUMBER_OF_RANGE_PARTICLES);
@@ -72,7 +72,7 @@ void init_cone_detector_ctx(cone_detector_ctx *cone_detector, playerc_laser_t *l
 }
 
 
-void calc_cone_pos(cone_detector_ctx *cone_detector)
+void calc_cone_laser_pos(cone_laser_detector_ctx *cone_detector)
 {
     int minor_scan_index;
     int left, right;

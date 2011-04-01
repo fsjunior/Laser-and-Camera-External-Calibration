@@ -1,5 +1,10 @@
 #include <gsl/gsl_matrix.h>
 
+
+#ifndef _UTILS_H_
+#define _UTILS_H_
+
+
 #ifndef PARTICLE_VALUE_DECIMALS
 #define PARTICLE_VALUE_DECIMALS 2
 #endif
@@ -34,3 +39,4 @@ double calc_dist(double x1, double x2, double y1, double y2);
 
 
 
+#endif /* _UTILS_H_ */
