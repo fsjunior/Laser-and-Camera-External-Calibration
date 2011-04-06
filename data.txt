@@ -3,3 +3,21 @@ altura 		0.28	0.275	0.40	0.372	0.50	0.095
 
 
 Nota: a largura medida foi feita utilizando a função get_laser_range_median para coletar os ranges do laser com um parâmetro MEDIAN_SIZE = 5.
+
+
+
+Laser: x1:0.063205 y1:0.465731 x2:0.232635 y2:0.408388 z:0.311096
+Camera: x1:426 y1:354 x2:594 y2:356
+Laser: x1:-0.124417 y1:0.473941 x2:0.057435 y2:0.486622 z:0.299397
+Camera: x1:255 y1:368 x2:425 y2:355
+Laser: x1:-0.365406 y1:0.411070 x2:-0.199573 y2:0.501767 z:0.276429
+Camera: x1:47 y1:404 x2:211 y2:369
+Laser: x1:0.200394 y1:1.010318 x2:0.368710 y2:0.951027 z:0.312517
+Camera: x1:474 y1:180 x2:586 y2:183
+Laser: x1:-0.141863 y1:0.827934 x2:0.046359 y2:0.818688 z:0.278359
+Camera: x1:275 y1:236 x2:404 y2:230
+Laser: x1:-0.483088 y1:0.637673 x2:-0.311032 y2:0.726195 z:0.261125
+Camera: x1:29 y1:315 x2:161 y2:281
+Laser: x1:-0.089496 y1:0.451210 x2:0.089496 y2:0.451210 z:0.310677
+Camera: x1:287 y1:355 x2:456 y2:351
+

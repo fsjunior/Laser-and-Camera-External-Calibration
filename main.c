@@ -5,8 +5,10 @@
 #include <opencv/highgui.h>
 #include "laser.h"
 #include "camera.h"
+#include "homography.h"
 //#include <gsl/gsl_matrix.h>
 
+#define MAX_POINTS 10
 
 // centimetros
 
@@ -23,7 +25,8 @@ int main(int argc, char *argv[])
     playerc_camera_t *camera;
     cone_laser_detector_ctx cone_laser_detector;
     cone_camera_detector_ctx cone_camera_detector;
-    int snapshot, i;
+    homography_ctx homography;
+    int snapshot = 0, i;
 
     // Create a client and connect it to the server.
     client = playerc_client_create(NULL, "localhost", 6665);
@@ -41,7 +44,7 @@ int main(int argc, char *argv[])
 
     init_cone_laser_detector_ctx(&cone_laser_detector, laser);
     init_cone_camera_detector_ctx(&cone_camera_detector, camera);
-
+    init_homography(&homography, MAX_POINTS);
 
     do {
         if(!playerc_client_read(client))
@@ -53,19 +56,38 @@ int main(int argc, char *argv[])
             cone_camera_detector.image->imageData[3 * i + 2] = cone_camera_detector.camera->image[3 * i];
         }
 
+        /* homografia computada */
+        if(homography.num_points >= homography.max_points) {
+            int u, v;
+            calc_cone_laser_pos(&cone_laser_detector);
+
+            world2image(&homography, cone_laser_detector.pos.x1, cone_laser_detector.pos.y1, cone_laser_detector.pos.z, &u, &v);
+            cvCircle(cone_camera_detector.image, cvPoint(v, u), 2, CV_RGB(0, 255, 0), -1, 8, 0);
+
+            world2image(&homography, cone_laser_detector.pos.x2, cone_laser_detector.pos.x2, cone_laser_detector.pos.z, &u, &v);
+            cvCircle(cone_camera_detector.image, cvPoint(v, u), 2, CV_RGB(0, 0, 255), -1, 8, 0);
+
+        }
+
         cvSetMouseCallback("Calibration", wait_snapshot, &snapshot);
         cvShowImage("Calibration", cone_camera_detector.image);
-        cvWaitKey(30);
+        cvWaitKey(10);
 
 
-        if(snapshot) {
+        /* adesão de pontos */
+        if(snapshot == 1 && homography.num_points < homography.max_points) {
             calc_cone_laser_pos(&cone_laser_detector);
             calc_cone_camera_pos(&cone_camera_detector, &cone_laser_detector);
             snapshot = 0;
-            //printf("x1:%f y1:%f x2:%f y2:%f z:%f\n", cone_detector.pos.x1, cone_detector.pos.y1, cone_detector.pos.x2, cone_detector.pos.y2, cone_detector.pos.z);
-            printf("x1:%d y1:%d x2:%d y2:%d\n", cone_camera_detector.pos.x1, cone_camera_detector.pos.y1, cone_camera_detector.pos.x2, cone_camera_detector.pos.y2);
+            printf("Laser: x1:%f y1:%f x2:%f y2:%f z:%f\n", cone_laser_detector.pos.x1, cone_laser_detector.pos.y1, cone_laser_detector.pos.x2, cone_laser_detector.pos.y2, cone_laser_detector.pos.z);
+            printf("Camera: x1:%d y1:%d x2:%d y2:%d\n", cone_camera_detector.pos.x1, cone_camera_detector.pos.y1, cone_camera_detector.pos.x2, cone_camera_detector.pos.y2);
+            homography_add_points(&homography, &(cone_laser_detector.pos), &(cone_camera_detector.pos));
             fflush(stdout);
+            if(homography.num_points >= homography.max_points)
+                compute_homography(&homography);
         }
+
+
 
 
         //printf("x1:%f y1:%f x2:%f y2:%f z:%f\n", cone_detector.pos.x1, cone_detector.pos.y1, cone_detector.pos.x2, cone_detector.pos.y2, cone_detector.pos.z);
