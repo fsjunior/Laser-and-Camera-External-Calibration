@@ -12,9 +12,9 @@ void calc_x_y(int scan_count, int index, double range, double *x, double *y)
     *y = sin(angle) * range;
 }
 
-double calc_dist(double x1, double x2, double y1, double y2)
+double calc_dist(cone_laser_pos *pos)
 {
-    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    return sqrt((pos->x[1] - pos->x[0]) * (pos->x[1] - pos->x[0]) + (pos->y[1] - pos->y[0]) * (pos->y[1] - pos->y[0]));
 }
 
 inline double degreetoradian(double degree)

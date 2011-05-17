@@ -11,11 +11,11 @@
 #endif
 
 #ifndef MEDIAN_SIZE
-#define MEDIAN_SIZE 5
+#define MEDIAN_SIZE 3
 #endif
 
 #ifndef NUMBER_OF_RANGE_PARTICLES
-#define NUMBER_OF_RANGE_PARTICLES 10
+#define NUMBER_OF_RANGE_PARTICLES 5
 #endif
 
 typedef struct {

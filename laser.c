@@ -91,12 +91,12 @@ void calc_cone_laser_pos(cone_laser_detector_ctx *cone_detector)
     leftrange = max_particle(cone_detector->leftranges, NUMBER_OF_RANGE_PARTICLES);
     rightrange = max_particle(cone_detector->rightranges, NUMBER_OF_RANGE_PARTICLES);
 
-    calc_x_y(cone_detector->laser->scan_count, left, leftrange, &(cone_detector->pos.x1), &(cone_detector->pos.y1));
-    calc_x_y(cone_detector->laser->scan_count, right, rightrange, &(cone_detector->pos.x2), &(cone_detector->pos.y2));
+    calc_x_y(cone_detector->laser->scan_count, left, leftrange, &(cone_detector->pos.x[0]), &(cone_detector->pos.y[0]));
+    calc_x_y(cone_detector->laser->scan_count, right, rightrange, &(cone_detector->pos.x[1]), &(cone_detector->pos.y[1]));
 
-    cone_detector->pos.dist = calc_dist(cone_detector->pos.x1, cone_detector->pos.x2, cone_detector->pos.y1, cone_detector->pos.y2);
+    //cone_detector->pos.dist = calc_dist(cone_detector->pos.x1, cone_detector->pos.x2, cone_detector->pos.y1, cone_detector->pos.y2);
 
-    cone_detector->pos.z = calc_z(cone_detector->pos.dist);
+    //cone_detector->pos.z = calc_z(cone_detector->pos.dist);
 }
 
 

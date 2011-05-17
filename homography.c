@@ -13,6 +13,7 @@ void init_homography(homography_ctx *ctx, int max_points)
     ctx->world_points = gsl_matrix_alloc(max_points,3);
     ctx->homography_matrix = gsl_matrix_alloc(3,4);
     ctx->num_points = 0;
+    ctx->computed = 0;
 }
 
 void free_homography(homography_ctx *ctx)
@@ -24,29 +25,23 @@ void free_homography(homography_ctx *ctx)
 
 int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_camera_pos *camera_pos)
 {
-    if(ctx->num_points + 1 < ctx->max_points) {
+    //if(ctx->num_points + 1 < ctx->max_points) {
+    int i;
 
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 0, laser_pos->x1);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 1, laser_pos->y1);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, laser_pos->z);
-
-        gsl_matrix_set(ctx->base_points, ctx->num_points, 0, camera_pos->x1);
-        gsl_matrix_set(ctx->base_points, ctx->num_points, 1, camera_pos->y1);
-
-        ctx->num_points++;
-
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 0, laser_pos->x2);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 1, laser_pos->y2);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, laser_pos->z);
-
-        gsl_matrix_set(ctx->base_points, ctx->num_points, 0, camera_pos->x2);
-        gsl_matrix_set(ctx->base_points, ctx->num_points, 1, camera_pos->y2);
-
-        ctx->num_points++;
+    for(i = 0; i < 4; i++) {
         
-        return 1;
-    } else
-        return 0;
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 0, laser_pos->x[i % 2]);
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 1, laser_pos->y[i % 2]);
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, (i > 1)? 0.84 : 0.39);
+
+        gsl_matrix_set(ctx->base_points, ctx->num_points, 0, camera_pos->x[i]);
+        gsl_matrix_set(ctx->base_points, ctx->num_points, 1, camera_pos->y[i]);
+        ctx->num_points++;
+    }
+
+    return 1;
+   // } else
+     //   return 0;
 }
 
 
@@ -128,7 +123,7 @@ void compute_homography(homography_ctx *ctx)
 
     //for(i=1;i<12;i++)
     //	printf("m[%d]=%f\ctx->num_points",i,gsl_vector_get(m,i));
-
+    ctx->computed = 1;
 }
 
 
@@ -169,4 +164,20 @@ void world2image(homography_ctx *ctx, double xpos, double ypos, double zpos, int
 
 	*u = (int)round((a+b+c)/(g+h+i));
 	*v = (int)round((d+e+f)/(g+h+i));
+}
+
+
+void save_homography(homography_ctx *ctx, char *filename)
+{
+    FILE *f = fopen(filename, "wb");
+    gsl_matrix_fwrite(f, ctx->homography_matrix);
+    fclose(f);
+}
+
+void load_homography(homography_ctx *ctx, char *filename)
+{
+    FILE *f = fopen(filename, "rb");
+    gsl_matrix_fread(f, ctx->homography_matrix);
+    fclose(f);
+    ctx->computed = 1;
 }

@@ -23,6 +23,7 @@ extern "C" {
         gsl_matrix *world_points;
         int num_points;
         int max_points;
+        int computed;
     } homography_ctx;
 
     void init_homography(homography_ctx *ctx, int max_points);
@@ -32,6 +33,11 @@ extern "C" {
     int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_camera_pos *camera_pos);
 
     void compute_homography(homography_ctx *ctx);
+
+    void save_homography(homography_ctx *ctx, char *filename);
+
+    void load_homography(homography_ctx *ctx, char *filename);
+
 
     void image2world(homography_ctx *ctx, int u, int v, double zpos, double *xpos, double *ypos);
 
