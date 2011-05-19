@@ -1,0 +1,15 @@
+driver
+(
+  name "readlog"
+  filename "/home/fsjunior/cone-detector/logs/lasercamera2011_05_12_17_13_57.log"
+  provides [ "laser:0" "camera:1" "log:0"]
+  autorewind 1
+  speed 3.0
+)
+
+driver
+(
+    name "camerauncompress"
+    requires ["camera:1"]
+    provides ["camera:0"]
+)
