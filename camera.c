@@ -38,21 +38,12 @@ void copy_cone_camera_image(cone_camera_detector_ctx *cone_camera_detector)
 {
     int i;
     IplImage *image;
-/*
-    printf("asd %d %d", cone_camera_detector->image->width, cone_camera_detector->image->height);
-    fflush(stdout);
-    int a = cone_camera_detector->camera->image[cone_camera_detector->image->width * cone_camera_detector->image->height * 3];
-    printf("asd\n");
-    fflush(stdout);
-*/
 
     for(i = 0; i < cone_camera_detector->image->width * cone_camera_detector->image->height; i++) {
         cone_camera_detector->image->imageData[3 * i] = cone_camera_detector->camera->image[3 * i + 2];
         cone_camera_detector->image->imageData[3 * i + 1] = cone_camera_detector->camera->image[3 * i + 1];
         cone_camera_detector->image->imageData[3 * i + 2] = cone_camera_detector->camera->image[3 * i];
     }
-
-
 
     if(cone_camera_detector->undistortion) {
         image = cvCloneImage(cone_camera_detector->image);
@@ -65,34 +56,23 @@ void calc_cone_camera_pos(cone_camera_detector_ctx *cone_camera_detector, cone_l
 {
     int i;
 
-    //memcpy((unsigned char*)image->imageData, (unsigned char*), cone_camera_detector->camera->image_count);
-
     /* Inverte os canais de cores da imagem.
      * */
-    printf("Z p/ 84cm e Z para 0.39cm\n");
+    //printf("Z p/ 84cm e Z para 0.39cm\n");
     printf("Dist: %f\n", calc_dist(&(cone_laser_detector->pos)));
 
     fflush(stdout);
-   
-    
+
     copy_cone_camera_image(cone_camera_detector);
 
-    
     cone_camera_detector->num_points = 0;
     cvSetMouseCallback("Calibration", defineCalibrationPoints, cone_camera_detector);
-
-    
 
     while(cone_camera_detector->num_points < 4 && cvWaitKey(10) != 27) {
         for(i = 0; i < cone_camera_detector->num_points; i++)
             cvCircle(cone_camera_detector->image, cvPoint(cone_camera_detector->pos.x[i], cone_camera_detector->pos.y[i]), 2, CV_RGB(0, 255, 0), -1, 8, 0);
         cvShowImage("Calibration", cone_camera_detector->image);
     }
-
-
-    printf("asd");
-    fflush(stdout);
-
 }
 
 void defineCalibrationPoints(int event, int x, int y, int flags, void* param)
@@ -110,7 +90,7 @@ void defineCalibrationPoints(int event, int x, int y, int flags, void* param)
 void free_cone_camera_detector_ctx(cone_camera_detector_ctx *cone_camera_detector)
 {
     cvReleaseImage(&(cone_camera_detector->image));
-    
+
     if(cone_camera_detector->undistortion) {
         cvReleaseImage(&(cone_camera_detector->mapx));
         cvReleaseImage(&(cone_camera_detector->mapy));

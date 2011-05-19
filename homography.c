@@ -32,7 +32,7 @@ int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_c
         
         gsl_matrix_set(ctx->world_points, ctx->num_points, 0, laser_pos->x[i % 2]);
         gsl_matrix_set(ctx->world_points, ctx->num_points, 1, laser_pos->y[i % 2]);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, (i > 1)? 0.84 : 0.39);
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, (i < 2)? LOW_ALT : HIGH_ALT);
 
         gsl_matrix_set(ctx->base_points, ctx->num_points, 0, camera_pos->x[i]);
         gsl_matrix_set(ctx->base_points, ctx->num_points, 1, camera_pos->y[i]);
