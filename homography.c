@@ -23,16 +23,16 @@ void free_homography(homography_ctx *ctx)
     gsl_matrix_free(ctx->homography_matrix);
 }
 
-int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_camera_pos *camera_pos)
+int homography_add_points(homography_ctx *ctx, obstacle_laser_pos *laser_pos, obstacle_camera_pos *camera_pos)
 {
     //if(ctx->num_points + 1 < ctx->max_points) {
     int i;
 
-    for(i = 0; i < 4; i++) {
+    for(i = 0; i < 2; i++) {
         
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 0, laser_pos->x[i % 2]);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 1, laser_pos->y[i % 2]);
-        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, (i < 2)? LOW_ALT : HIGH_ALT);
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 0, laser_pos->x);
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 1, laser_pos->y);
+        gsl_matrix_set(ctx->world_points, ctx->num_points, 2, (i == 0)? LOW_ALT : HIGH_ALT);
 
         gsl_matrix_set(ctx->base_points, ctx->num_points, 0, camera_pos->x[i]);
         gsl_matrix_set(ctx->base_points, ctx->num_points, 1, camera_pos->y[i]);
@@ -40,8 +40,6 @@ int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_c
     }
 
     return 1;
-   // } else
-     //   return 0;
 }
 
 

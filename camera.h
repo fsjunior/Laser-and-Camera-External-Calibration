@@ -18,15 +18,15 @@ typedef struct {
     IplImage *image;
     IplImage *mapx, *mapy;
     int undistortion;
-    cone_camera_pos pos;
+    obstacle_camera_pos pos;
     int num_points;
-} cone_camera_detector_ctx;
+} obstacle_camera_detector_ctx;
 
-void init_cone_camera_detector_ctx(cone_camera_detector_ctx *cone_camera_detector, playerc_camera_t *camera);
-void init_cone_camera_undistortion_matrix(cone_camera_detector_ctx *cone_camera_detector, char *intrinsics, char *distortion);
-void calc_cone_camera_pos(cone_camera_detector_ctx *cone_camera_detector, cone_laser_detector_ctx *cone_laser_detector);
-void copy_cone_camera_image(cone_camera_detector_ctx *cone_camera_detector);
-void free_cone_camera_detector_ctx(cone_camera_detector_ctx *cone_camera_detector);
+void init_obstacle_camera_detector_ctx(obstacle_camera_detector_ctx *obstacle_camera_detector, playerc_camera_t *camera);
+void init_obstacle_camera_undistortion_matrix(obstacle_camera_detector_ctx *obstacle_camera_detector, char *intrinsics, char *distortion);
+void calc_obstacle_camera_pos(obstacle_camera_detector_ctx *obstacle_camera_detector, obstacle_laser_detector_ctx *obstacle_laser_detector);
+void copy_obstacle_camera_image(obstacle_camera_detector_ctx *obstacle_camera_detector);
+void free_obstacle_camera_detector_ctx(obstacle_camera_detector_ctx *obstacle_camera_detector);
 
 #endif	/* _CAMERA_H */
 

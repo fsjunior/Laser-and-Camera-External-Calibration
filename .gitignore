@@ -4,3 +4,4 @@ cone_detector
 logs/
 *.so
 carro_logs/
+train.arff

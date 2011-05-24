@@ -19,14 +19,15 @@
 #endif
 
 typedef struct {
-    double_particle leftranges[NUMBER_OF_RANGE_PARTICLES];
-    double_particle rightranges[NUMBER_OF_RANGE_PARTICLES];
+//    double_particle leftranges[NUMBER_OF_RANGE_PARTICLES];
+//    double_particle rightranges[NUMBER_OF_RANGE_PARTICLES];
     playerc_laser_t *laser;
-    cone_laser_pos pos;
-} cone_laser_detector_ctx;
+    obstacle_laser_pos pos;
+    int minor_scan_index;
+} obstacle_laser_detector_ctx;
 
 
-void init_cone_laser_detector_ctx(cone_laser_detector_ctx *cone_detector, playerc_laser_t *laser);
-void calc_cone_laser_pos(cone_laser_detector_ctx *cone_detector);
+void init_obstacle_laser_detector_ctx(obstacle_laser_detector_ctx *obstacle_detector, playerc_laser_t *laser);
+void calc_obstacle_laser_pos(obstacle_laser_detector_ctx *obstacle_detector);
 
 #endif /* _LASER_H_ */

@@ -11,14 +11,14 @@
 
 
 typedef struct {
-    double x[2];
-    double y[2];
-} cone_laser_pos;
+    double x;
+    double y;
+} obstacle_laser_pos;
 
 typedef struct {
-    int x[4];
-    int y[4];
-} cone_camera_pos;
+    int x[2];
+    int y[2];
+} obstacle_camera_pos;
 
 typedef struct {
     int v; //value (fixed point)
@@ -32,7 +32,7 @@ double max_particle(double_particle *p, int s);
 void init_particle(double_particle *p, int s);
 
 void calc_x_y(int scan_count, int index, double range, double *x, double *y);
-double calc_dist(cone_laser_pos *pos);
+double calc_dist(obstacle_laser_pos *pos);
 
 
 

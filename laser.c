@@ -3,7 +3,7 @@
 
 //declarations
 int get_minor_scan_index(playerc_laser_t *laser);
-void get_cone_borders(playerc_laser_t *laser, int middle, int *left, int *right);
+void get_obstacle_borders(playerc_laser_t *laser, int middle, int *left, int *right);
 double get_laser_range_median(playerc_laser_t *laser, int max_index);
 inline double calc_z(double dist);
 
@@ -26,7 +26,7 @@ int get_minor_scan_index(playerc_laser_t *laser)
     return minor_scan_index;
 }
 
-void get_cone_borders(playerc_laser_t *laser, int middle, int *left, int *right)
+void get_obstacle_borders(playerc_laser_t *laser, int middle, int *left, int *right)
 {
     int i;
     i = middle + 1;
@@ -64,34 +64,40 @@ double get_laser_range_median(playerc_laser_t *laser, int max_index)
     return median_vector[MEDIAN_SIZE / 2];
 }
 
-void init_cone_laser_detector_ctx(cone_laser_detector_ctx *cone_detector, playerc_laser_t *laser)
+void init_obstacle_laser_detector_ctx(obstacle_laser_detector_ctx *obstacle_detector, playerc_laser_t *laser)
 {
-    cone_detector->laser = laser;
-    init_particle(cone_detector->leftranges, NUMBER_OF_RANGE_PARTICLES);
-    init_particle(cone_detector->rightranges, NUMBER_OF_RANGE_PARTICLES);
+    obstacle_detector->laser = laser;
+    obstacle_detector->minor_scan_index = -1;
+//    init_particle(obstacle_detector->leftranges, NUMBER_OF_RANGE_PARTICLES);
+//    init_particle(obstacle_detector->rightranges, NUMBER_OF_RANGE_PARTICLES);
 }
 
-void calc_cone_laser_pos(cone_laser_detector_ctx *cone_detector)
+void calc_obstacle_laser_pos(obstacle_laser_detector_ctx *obstacle_detector)
 {
-    int minor_scan_index;
+//    int minor_scan_index;
+/*
     int left, right;
     double leftrange, rightrange;
+*/
 
 
-    minor_scan_index = get_minor_scan_index(cone_detector->laser);
-    get_cone_borders(cone_detector->laser, minor_scan_index, &left, &right);
+    obstacle_detector->minor_scan_index = get_minor_scan_index(obstacle_detector->laser);
+/*    get_obstacle_borders(obstacle_detector->laser, minor_scan_index, &left, &right);
 
-    leftrange = get_laser_range_median(cone_detector->laser, left);
-    rightrange = get_laser_range_median(cone_detector->laser, right + MEDIAN_SIZE);
+    leftrange = get_laser_range_median(obstacle_detector->laser, left);
+    rightrange = get_laser_range_median(obstacle_detector->laser, right + MEDIAN_SIZE);
 
-    add_particle(cone_detector->leftranges, leftrange, NUMBER_OF_RANGE_PARTICLES);
-    add_particle(cone_detector->rightranges, rightrange, NUMBER_OF_RANGE_PARTICLES);
+    add_particle(obstacle_detector->leftranges, leftrange, NUMBER_OF_RANGE_PARTICLES);
+    add_particle(obstacle_detector->rightranges, rightrange, NUMBER_OF_RANGE_PARTICLES);
 
-    leftrange = max_particle(cone_detector->leftranges, NUMBER_OF_RANGE_PARTICLES);
-    rightrange = max_particle(cone_detector->rightranges, NUMBER_OF_RANGE_PARTICLES);
+    leftrange = max_particle(obstacle_detector->leftranges, NUMBER_OF_RANGE_PARTICLES);
+    rightrange = max_particle(obstacle_detector->rightranges, NUMBER_OF_RANGE_PARTICLES);
 
-    calc_x_y(cone_detector->laser->scan_count, left, leftrange, &(cone_detector->pos.x[0]), &(cone_detector->pos.y[0]));
-    calc_x_y(cone_detector->laser->scan_count, right, rightrange, &(cone_detector->pos.x[1]), &(cone_detector->pos.y[1]));
+    calc_x_y(obstacle_detector->laser->scan_count, left, leftrange, &(obstacle_detector->pos.x[0]), &(obstacle_detector->pos.y[0]));
+    calc_x_y(obstacle_detector->laser->scan_count, right, rightrange, &(obstacle_detector->pos.x[1]), &(obstacle_detector->pos.y[1]));*/
+
+    calc_x_y(obstacle_detector->laser->scan_count, obstacle_detector->minor_scan_index, obstacle_detector->laser->ranges[obstacle_detector->minor_scan_index], &(obstacle_detector->pos.x), &(obstacle_detector->pos.y));
+
 }
 
 

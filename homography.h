@@ -30,7 +30,7 @@ void init_homography(homography_ctx *ctx, int max_points);
 
 void free_homography(homography_ctx *ctx);
 
-int homography_add_points(homography_ctx *ctx, cone_laser_pos *laser_pos, cone_camera_pos *camera_pos);
+int homography_add_points(homography_ctx *ctx, obstacle_laser_pos *laser_pos, obstacle_camera_pos *camera_pos);
 
 void compute_homography(homography_ctx *ctx);
 
