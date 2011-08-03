@@ -106,7 +106,7 @@ int main(const int argc, char *argv[])
                 case COMPUTED: // homografia computada
                     compute_mask(&image_mask);
                     if(key_pressed == 's') {
-                        save_mask_as_arff(&image_mask, "train.arff");
+                        //save_mask_as_arff(&image_mask, "test.arff");
                     }
                     cvShowImage("Image Mask", image_mask.image);
 

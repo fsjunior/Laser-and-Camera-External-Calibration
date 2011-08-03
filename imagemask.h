@@ -24,8 +24,11 @@
 
 #define HALF_LINE_OBSTACLE_WIDTH 3
 #define HALF_LINE_BORDER_WIDTH 15
+#define HALF_LINE_NAVIGABLE_WIDTH HALF_LINE_BORDER_WIDTH
 
 #define MAX_LASER_READ_SIZE 8.0
+
+#define BLOCK_SIZE 10
 
 typedef struct {
     IplImage *image;
